@@ -26,6 +26,7 @@ The next line `geocoded_waypoints` contains two items, `0` and `1`. Expanding fi
 Our route in this case requested directions from two places. Before a route can be determined Google had to find each of those places. The `0` is the first place, the _origin_ (Disneyland), and the 1 is the second place (Universal Studios), was the _destination_. Digging deeper into the hierarchy for these shows metadata about each of the geocoded places. If there were multiple stops in the directions request there would be that number of items here. 
 
 #### **Q) Is there a limit to the number of "stops" in the directions API?** 
+#### **A) Yes there is a limit of 10 waypoints, you need 'Directions Advanced' to access 11-25 waypoints, including traffic info and waypoints optimization.**
 Hint: the answers (yes there are multiple) can be found on the [Usage and Billing](https://developers.google.com/maps/documentation/directions/usage-and-billing) page. 
 
 > _Interested in learning more about Places? You can discover the place id of any location using this tool: https://googlemaps.github.io/js-samples/dist/samples/places-placeid-finder/index.html_
