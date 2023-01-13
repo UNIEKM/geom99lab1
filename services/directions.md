@@ -5,7 +5,7 @@ The Routes capabilities in Google Maps provides directions. Follow this exercise
 Look at the following URL: 
 
 ```
-https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=YOUR_API_KEY
+https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=AIzaSyCM-WWHYHIKY-do4kquMy9Z4wQaQx51AuE
 ```
 As provided, it will not work. That is because you must provide an API Key. The IP-whitelisted API key will work with this (the directions API is meant to be used server-side, not on a webpage itself. It is a service provided on the web, not a web page itself). Modify the URL above to replace YOUR_API_KEY with the second key provided in this course and test it in a tab. 
 
@@ -27,6 +27,7 @@ Our route in this case requested directions from two places. Before a route can 
 
 #### **Q) Is there a limit to the number of "stops" in the directions API?** 
 #### **A) Yes there is a limit of 10 waypoints, you need 'Directions Advanced' to access 11-25 waypoints, including traffic info and waypoints optimization.**
+
 Hint: the answers (yes there are multiple) can be found on the [Usage and Billing](https://developers.google.com/maps/documentation/directions/usage-and-billing) page. 
 
 > _Interested in learning more about Places? You can discover the place id of any location using this tool: https://googlemaps.github.io/js-samples/dist/samples/places-placeid-finder/index.html_
@@ -51,3 +52,5 @@ This final element in the JSON reassures whatever is reading it that everything 
 Now you understand how to make a request to Google's maps and return directions. These directions have many elements embedded, including IDs of the various stops, lines representing the map, the bounding box for the results and details about each "turn by turn" called a leg. 
 ### Create your own directions request
 Modify the URL to go from a place you know to another place you know and add in appropriate and novel parameters from the various available in the Directions API. Explore your results using the http://jsonviewer.stack.hu/ tool. In this repository modify the MarkDown file [mydirections.md](mydirections.md) to document your working URL with valid API Key, and the full JSON response from that URL. 
+
+
