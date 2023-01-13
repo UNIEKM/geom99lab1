@@ -952,12 +952,21 @@ https://maps.googleapis.com/maps/api/directions/json?avoid=highways&destination=
    "status" : "OK"
 }
 ```
-
+```
 ##LINKS to display PlaceIDS
+```
+```
 Start Point: https://www.google.com/maps/place/?q=place_id:ChIJSxASt5l1hlQRJ8Ti_bDBmpE
+```
+```
 First Waypoint: https://www.google.com/maps/place/?q=place_id:ChIJwW3HeIZzhlQRVxJgWI8VjAg
+```
+```
 Second Waypoint: https://www.google.com/maps/place/?q=place_id:ChIJb2gVVzZzhlQRW6FKTfIcqMY
+```
+```
 End Point: https://www.google.com/maps/place/?q=place_id:ChIJUzqZj0oNhlQRSzlBeYd5v-0 
+```
 ____
 ## Rubric
 
