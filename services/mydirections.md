@@ -952,7 +952,7 @@ https://maps.googleapis.com/maps/api/directions/json?avoid=highways&destination=
    "status" : "OK"
 }
 ```
-```
+___
 ##LINKS to display PlaceIDS
 ```
 ```
