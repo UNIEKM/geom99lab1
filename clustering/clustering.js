@@ -12,7 +12,7 @@ function initMap() {
   const markers = locations.map((location, i) => {
     return new google.maps.Marker({
       position: location,
-    title: location.name,
+      title: location.name,
       label: labels[i % labels.length],
     });
   });
