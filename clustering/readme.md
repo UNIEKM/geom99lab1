@@ -8,7 +8,7 @@ The code has been adapted into a single page combining the HTML, CSS and JavaScr
 ### [ontarioparks.html](ontarioparks.html) - HTML File with Inline CSS
 ### [clustering.js](clustering.js) - JavaScript File linked to above HTML
 
-This webpage is accessible on GitHub Pages web server using the URL `https://[username].github.io/geom99lab1/clustering/ontarioparks.html` where `[username]` is replaced with your GitHub account username. 
+This webpage is accessible on GitHub Pages web server using the URL `https://uniekm.github.io/geom99lab1/clustering/ontarioparks.html` 
 
 Using this as the base, first get the example working by adding the provided Google Maps API Key into the line calling the google maps library. Next, review how the example works. Compare this example to the previous activity [simplemap.html](../services/simplemap.html).
 
