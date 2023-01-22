@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>100489-100489.kmz</name>
+	<Folder>
+		<name>100489-100489-2</name>
+		<description><![CDATA[n =4<br/>2013-06-22 to 2013-08-21]]></description>
+		<NetworkLink>
+			<name>Points</name>
+			<flyToView>1</flyToView>
+			<Link>
+				<href>points.kml</href>
+			</Link>
+		</NetworkLink>
+		<NetworkLink>
+			<name>Line</name>
+			<flyToView>1</flyToView>
+			<Link>
+				<href>line.kml</href>
+			</Link>
+		</NetworkLink>
+	</Folder>
+	<Folder>
+		<name>100489-100489</name>
+		<description><![CDATA[n =36<br/>2013-06-22 to 2013-08-26]]></description>
+		<NetworkLink>
+			<name>Points</name>
+			<flyToView>1</flyToView>
+			<Link>
+				<href>points_0.kml</href>
+			</Link>
+		</NetworkLink>
+		<NetworkLink>
+			<name>Line</name>
+			<flyToView>1</flyToView>
+			<Link>
+				<href>line_0.kml</href>
+			</Link>
+		</NetworkLink>
+	</Folder>
+</Document>
+</kml>
