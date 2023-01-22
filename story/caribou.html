@@ -62,8 +62,8 @@ let map;
 const pec = { lat: 55.3295348044049, lng: -122.110498767601 };
 
 /**
- * The CenterControl adds a control to the map that recenters the map on
- * pec.
+ * START OF: The CenterControl adds a control to the map that recenters the map on
+ * pec. Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/control-custom
  */
  class CenterControl {
   map_;
@@ -74,28 +74,27 @@ const pec = { lat: 55.3295348044049, lng: -122.110498767601 };
     this.center_ = new google.maps.LatLng(center);
     controlDiv.style.clear = "both";
 
-    // Set CSS for the control border
     const goCenterUI = document.createElement("button");
 
     goCenterUI.id = "goCenterUI";
     goCenterUI.title = "Click to recenter the map";
     controlDiv.appendChild(goCenterUI);
 
-    // Set CSS for the control interior
+  
     const goCenterText = document.createElement("div");
 
     goCenterText.id = "goCenterText";
     goCenterText.innerHTML = "Center Map";
     goCenterUI.appendChild(goCenterText);
 
-    // Set CSS for the setCenter control border
+   
     const setCenterUI = document.createElement("button");
 
     setCenterUI.id = "setCenterUI";
     setCenterUI.title = "Click to change the center of the map";
     controlDiv.appendChild(setCenterUI);
 
-    // Set CSS for the control interior
+   
     const setCenterText = document.createElement("div");
 
     setCenterText.id = "setCenterText";
@@ -120,7 +119,10 @@ const pec = { lat: 55.3295348044049, lng: -122.110498767601 };
     });
   }
 }
-55.33807953650613, -123.09327318649834
+/**
+ * END OF: The CenterControl adds a control to the map that recenters the map on
+ * pec. Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/control-custom
+ */
 
 function initMap() {
   const myLatlng = { lat: 55.3295348044049, lng: -122.110498767601 };  
@@ -147,6 +149,10 @@ function initMap() {
     map.setZoom(10);
     map.setCenter(marker.getPosition());
   });
+ /**
+ * START OF: Simple Polyline
+ * Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
+ */
   const cariboutracks = [
   { lat: 55.3295348044049, lng: -122.110498767601},
 { lat: 55.3310460002531, lng: -122.123138684834},
