@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!-- source: https://developers.google.com/maps/documentation/javascript/overview#maps_map_simple-html -->
+<!-- STUDENTS: Modify this file to provided the Google API key to get it working, 
+               then modify the lat and lng and zoom to point to a place you know  -->
+<html>
+  <head>
+    <title>Mountain Caribou Home Range</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+     <!---Kevin VD: Favicon/Viewport/jQuery CDN Starts Here-->
+    <link rel="shortcut icon" href="Icons/icons8-mountain-50.png" type="image/x-icon"> <!--Free icon from:"https://icons8.com"-->
+    <meta charset="UTF-8"><!--Tell browser charset used in page/W3S-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--Setting Viewport, set width of page-follow device screen width/initial zoom scale 1/W3S--> 
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map {
+          height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        #goCenterUI,       
+        #setCenterUI {
+        background-color: #fff;
+        border: 2px solid #fff;
+        border-radius: 3px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        float: left;
+        margin-bottom: 22px;
+        text-align: center;
+        }
+
+        #goCenterText,
+        #setCenterText {
+        color: rgb(25, 25, 25);
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 15px;
+        line-height: 25px;
+        padding-left: 5px;
+        padding-right: 5px;
+        }
+
+        #setCenterUI {
+        margin-left: 12px;
+        }
+        .centerControlDiv {
+        padding-top: 50px;
+        z-index: 1;  
+        }
+        .emphasized {
+            font-style: italic;
+        }
+   
+    </style>
+    <script>
+let map;
+const pec = { lat: 55.3295348044049, lng: -122.110498767601 };
+
+/**
+ * The CenterControl adds a control to the map that recenters the map on
+ * pec.
+ */
+ class CenterControl {
+  map_;
+  center_;
+  constructor(controlDiv, map, center) {
+    this.map_ = map;
+    // Set the center property upon construction
+    this.center_ = new google.maps.LatLng(center);
+    controlDiv.style.clear = "both";
+
+    // Set CSS for the control border
+    const goCenterUI = document.createElement("button");
+
+    goCenterUI.id = "goCenterUI";
+    goCenterUI.title = "Click to recenter the map";
+    controlDiv.appendChild(goCenterUI);
+
+    // Set CSS for the control interior
+    const goCenterText = document.createElement("div");
+
+    goCenterText.id = "goCenterText";
+    goCenterText.innerHTML = "Center Map";
+    goCenterUI.appendChild(goCenterText);
+
+    // Set CSS for the setCenter control border
+    const setCenterUI = document.createElement("button");
+
+    setCenterUI.id = "setCenterUI";
+    setCenterUI.title = "Click to change the center of the map";
+    controlDiv.appendChild(setCenterUI);
+
+    // Set CSS for the control interior
+    const setCenterText = document.createElement("div");
+
+    setCenterText.id = "setCenterText";
+    setCenterText.innerHTML = "Set Center";
+    setCenterUI.appendChild(setCenterText);
+    // Set up the click event listener for 'Center Map': Set the center of
+    // the map
+    // to the current center of the control.
+    goCenterUI.addEventListener("click", () => {
+      const currentCenter = this.center_;
+
+      this.map_.setCenter(currentCenter);
+    });
+    // Set up the click event listener for 'Set Center': Set the center of
+    // the control to the current center of the map.
+    setCenterUI.addEventListener("click", () => {
+      const newCenter = this.map_.getCenter();
+
+      if (newCenter) {
+        this.center_ = newCenter;
+      }
+    });
+  }
+}
+55.33807953650613, -123.09327318649834
+
+function initMap() {
+  const myLatlng = { lat: 55.3295348044049, lng: -122.110498767601 };  
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: { lat: 55.3295348044049, lng: -122.110498767601 },
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+      mapTypeIds: ["roadmap", "terrain", "satellite"],
+    }
+  });
+  const image =
+    "http://maps.google.com/mapfiles/kml/pal5/icon6.png";
+  const marker = new google.maps.Marker({
+    position: myLatlng,
+    map,
+    title: "Click to zoom",
+    icon: image,
+  });
+
+
+  marker.addListener("click", () => {
+    map.setZoom(10);
+    map.setCenter(marker.getPosition());
+  });
+  const cariboutracks = [
+  { lat: 55.3295348044049, lng: -122.110498767601},
+{ lat: 55.3310460002531, lng: -122.123138684834},
+{ lat: 55.4256784132476, lng: -122.495285381385},
+{ lat: 55.4322029471993, lng: -122.499848297572},
+{ lat: 55.4328218886617, lng: -122.503996785114},
+{ lat: 55.4196306586094, lng: -122.467668222353},
+{ lat: 55.4060002386383, lng: -122.45167963227},
+{ lat: 55.4382290375319, lng: -122.444863254427},
+{ lat: 55.4653615071685, lng: -122.470104888844},
+{ lat: 55.4727796957994, lng: -122.473311655235},
+{ lat: 55.4345207825647, lng: -122.482434420849},
+{ lat: 55.4709805226919, lng: -122.238868239588},
+{ lat: 55.4395014864425, lng: -122.189731242541},
+{ lat: 55.3451947858713, lng: -122.086920045869},
+{ lat: 55.3440532491131, lng: -122.086883232172},
+{ lat: 55.3355250065519, lng: -122.129960672726},
+{ lat: 55.5024059967172, lng: -122.279218476291},
+{ lat: 55.4801520202845, lng: -122.219799173908},
+{ lat: 55.4711578605807, lng: -122.238485164695},
+{ lat: 55.5121025445482, lng: -122.270236779139},
+{ lat: 55.5380038791273, lng: -122.297043736893},
+{ lat: 55.5285625549487, lng: -122.28510878606},
+{ lat: 55.5228733570706, lng: -122.274219138994},
+{ lat: 55.5210419986281, lng: -122.273001563755},
+{ lat: 55.5038888405655, lng: -122.264134998576},
+{ lat: 55.5141661273775, lng: -122.271212119899},
+{ lat: 55.5024780156697, lng: -122.264129646782},
+{ lat: 55.5022937757998, lng: -122.261885004645},
+{ lat: 55.5019464776192, lng: -122.263902088683},
+{ lat: 55.5031458896648, lng: -122.263119782639},
+{ lat: 55.5006228863682, lng: -122.264955785461},
+{ lat: 55.5011268669687, lng: -122.25172745078},
+{ lat: 55.4948915280897, lng: -122.251877325762},
+{ lat: 55.4511712445617, lng: -122.355523873593},
+{ lat: 55.4407578711627, lng: -122.433921138709},
+{ lat: 55.4415867922655, lng: -122.440263700134},
+{ lat: 55.4190447613235, lng: -122.486159749764},
+{ lat: 55.3883608850998, lng: -122.432017853876},
+{ lat: 55.4306898960705, lng: -122.438964026255},
+{ lat: 55.4382659361295, lng: -122.44905124533},
+{ lat: 55.4513798526893, lng: -122.463999561766},
+{ lat: 55.4387818155529, lng: -122.447874422981},
+{ lat: 55.4423307672313, lng: -122.457815098544},
+{ lat: 55.458194089364, lng: -122.487769931259},
+{ lat: 55.5054088188123, lng: -122.406822606063},
+{ lat: 55.4524536022499, lng: -122.233469569747},
+{ lat: 55.3475107689178, lng: -122.082987346542},
+{ lat: 55.3238583831578, lng: -122.159136743993},
+{ lat: 55.3358044804853, lng: -122.090588617117},
+{ lat: 55.3149753694163, lng: -122.210991666438},
+{ lat: 55.3670613055036, lng: -122.216866304496},
+{ lat: 55.3715877681081, lng: -122.22209455179},
+{ lat: 55.3646029896542, lng: -122.204940410966},
+{ lat: 55.3706211480743, lng: -122.19629908654},
+{ lat: 55.3761179687012, lng: -122.204125593576},
+{ lat: 55.3713025222311, lng: -122.204301146795},
+{ lat: 55.3723574101455, lng: -122.203459433599},
+{ lat: 55.3720666400336, lng: -122.19884185896},
+{ lat: 55.3716062044012, lng: -122.202638216702},
+{ lat: 55.5017459494314, lng: -122.413115141995},
+{ lat: 55.4276903695002, lng: -122.495070101819},
+{ lat: 55.3813298864494, lng: -122.395580929943},
+{ lat: 55.4197033700866, lng: -122.461695500854},
+{ lat: 55.424243113882, lng: -122.440082430689},
+{ lat: 55.4412165173476, lng: -122.455791288612},
+{ lat: 55.458821479245, lng: -122.489532954196},
+{ lat: 55.4723680819712, lng: -122.453210786851},
+{ lat: 55.4745833221401, lng: -122.271262353267},
+{ lat: 55.4957367895577, lng: -122.260852126812},
+{ lat: 55.5236594427832, lng: -122.277990451853},
+{ lat: 55.4877066710339, lng: -122.293381793536},
+{ lat: 55.5139779737822, lng: -122.292768667865},
+{ lat: 55.4190004310321, lng: -122.307642347725},
+{ lat: 55.4722960322795, lng: -122.38321122545},
+{ lat: 55.4774299407092, lng: -122.350760376672},
+{ lat: 55.43260709341, lng: -122.31114968726},
+{ lat: 55.382041922635, lng: -122.403335461608},
+{ lat: 55.3990079291106, lng: -122.445428836893},
+{ lat: 55.41859143919, lng: -122.502579541737},
+{ lat: 55.4399160256085, lng: -122.400550109162},
+{ lat: 55.4294889574095, lng: -122.405385554315},
+{ lat: 55.466119437249, lng: -122.35981953459},
+{ lat: 55.3531566127869, lng: -122.19974419746},
+{ lat: 55.3030008935505, lng: -122.20609415249},
+{ lat: 55.3124758723644, lng: -122.195632022591},
+{ lat: 55.3016975920292, lng: -122.257486119929},
+{ lat: 55.3109049255225, lng: -122.26432517013},
+{ lat: 55.3034072917399, lng: -122.22743038738},
+{ lat: 55.3180194943297, lng: -122.200972097941},
+{ lat: 55.4543473233816, lng: -122.358002047169},
+{ lat: 55.4045160739981, lng: -122.447357320913},
+{ lat: 55.404377312163, lng: -122.458524314302},
+{ lat: 55.451352448142, lng: -122.459810041847},
+{ lat: 55.4213313924534, lng: -122.472369221506},
+{ lat: 55.4547886870515, lng: -122.460632760394},
+{ lat: 55.4585667054045, lng: -122.473928044694},
+{ lat: 55.4600002819892, lng: -122.477150905956},
+{ lat: 55.4585015738337, lng: -122.236404381838},
+{ lat: 55.4622694198003, lng: -122.236837673499},
+{ lat: 55.4332305583828, lng: -122.349542074243},
+{ lat: 55.386923058581, lng: -122.283183066393},
+{ lat: 55.3960293500978, lng: -122.283760386441},
+
+    
+  ];
+  const caribou = new google.maps.Polyline({
+    path: cariboutracks,
+    geodesic: true,
+    strokeColor: "#f50545",
+    strokeOpacity: 1.0,
+    strokeWeight: 1,
+  });
+
+  caribou.setMap(map);
+  const contentString =
+  '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    '<h1 id="firstHeading" class="firstHeading">Mountain Caribou (<em>Rangifer tarandus caribou</em>)</h1>' +
+    '<div id="bodyContent">' +
+    "<p><b>Home Range for Animal Tag ID: car022</b></p>" +
+    "<p> Over the past century, " +
+    
+    "old forests in this high snowfall zone " +
+    "of British Columbia have " +
+    "become far less abundant. Habitat has " +
+    "been lost to fires, timber harvesting, hydroelectric reservoirs, and human settlement. " +
+    "In many places, the remaining habitat " +
+    "occurs in small patches. The loss and fragmentation of old-growth forests may cause " +
+    "caribou to abandon some areas. It " +
+    "also increases the risk that caribou " +
+    "will be killed by predators or poachers, or disturbed by outdoor recreationists. Resource management " +
+    "guidelines have been developed for " +
+    "all herds of Mountain Caribou in " +
+    "British Columbia, and most herds "+
+    "are being monitored, but habitat " +
+    "alteration continues to pose a threat</p>" +
+    '<p>Attribution: <em>MOUNTAIN CARIBOU</em>, <a href="https://www2.gov.bc.ca/assets/gov/environment/plants-animals-and-ecosystems/species-ecosystems-at-risk/brochures/mountain_caribou.pdf">' +
+    "https://www2.gov.bc.ca/assets/gov/environment/plants-animals-and-ecosystems/species-ecosystems-at-risk/brochures/mountain_caribou.pdf</a> " +
+    ".</p>" +
+    '<p>Data: <em>MOVEBANK</em>, <a href="https://www.movebank.org/cms/webapp?gwt_fragment=https://www.movebank.org/movebank/#">' +
+    "https://www.movebank.org/cms/webapp?gwt_fragment=https://www.movebank.org/movebank/#</a> " +
+    "(Animal Tag ID car022: Deployment interval 2003-2008).</p>" +
+    "</p>" +
+    "</div>" +
+    "</div>";
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+    ariaLabel: "Mountain Caribou",
+    // pixelOffset: new google.maps.Size(-130,-250)  
+  });
+ 
+  marker.addListener("click", () => {
+    infowindow.open({
+      anchor: marker,
+      map,
+    });
+    
+  });
+
+
+window.initMap = initMap;
+
+    // Create the DIV to hold the control and call the CenterControl()
+  // constructor passing in this DIV.
+  const centerControlDiv = document.createElement("div");
+  const control = new CenterControl(centerControlDiv, map, pec);
+
+
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+  
+}
+
+
+     
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+    
+    
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <!-- *** STUDENTS: Replace YOUR_API_KEY text with provided key in class for property src in next line *** -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCM-WWHYHIKY-do4kquMy9Z4wQaQx51AuE&callback=initMap&v=weekly" async>
+    </script>
+  </body>
+</html>
