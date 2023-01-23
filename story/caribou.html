@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <!-- source: https://developers.google.com/maps/documentation/javascript/overview#maps_map_simple-html -->
-<!-- STUDENTS: Modify this file to provided the Google API key to get it working, 
-               then modify the lat and lng and zoom to point to a place you know  -->
 <html>
   <head>
     <title>Mountain Caribou Home Range</title>
@@ -23,6 +21,7 @@
           margin: 0;
           padding: 0;
         }
+      /*START----Style for centre buttons taken from: https://developers.google.com/maps/documentation/javascript/examples/control-custom-state#maps_control_custom_state-css */
         #goCenterUI,       
         #setCenterUI {
         background-color: #fff;
@@ -52,19 +51,20 @@
         padding-top: 50px;
         z-index: 1;  
         }
+   /*END----Style for centre buttons taken from: https://developers.google.com/maps/documentation/javascript/examples/control-custom-state#maps_control_custom_state-css */
         .emphasized {
             font-style: italic;
         }
    
     </style>
     <script>
+ /**
+ * START OF: The CenterControl adds a control to the map that recenters the map on
+ *  Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/control-custom
+ */
 let map;
 const pec = { lat: 55.3295348044049, lng: -122.110498767601 };
 
-/**
- * START OF: The CenterControl adds a control to the map that recenters the map on
- * pec. Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/control-custom
- */
  class CenterControl {
   map_;
   center_;
@@ -121,9 +121,17 @@ const pec = { lat: 55.3295348044049, lng: -122.110498767601 };
 }
 /**
  * END OF: The CenterControl adds a control to the map that recenters the map on
- * pec. Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/control-custom
+ * Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/control-custom
  */
-
+/**
+ * START OF: Map Type Control with option for 'roadmap w/terrain, satellite' w/ dropdown_menu 
+ * Modified from example found at : https://developers.google.com/maps/documentation/javascript/controls
+ */
+/**
+ * START OF: Handling event/Map and Marker Events: Event handler added to marker so zooms map once clicked
+ * Modified so it doesn't pan back to marker, from example found at : https://developers.google.com/maps/documentation/javascript/events
+ */
+      
 function initMap() {
   const myLatlng = { lat: 55.3295348044049, lng: -122.110498767601 };  
   const map = new google.maps.Map(document.getElementById("map"), {
@@ -136,22 +144,34 @@ function initMap() {
     }
   });
   const image =
-    "http://maps.google.com/mapfiles/kml/pal5/icon6.png";
+    "http://maps.google.com/mapfiles/kml/pal5/icon6.png"; /*Icon taken from "http://maps.google.com/mapfiles/kml/pal5/icon6.png"*/
   const marker = new google.maps.Marker({
     position: myLatlng,
     map,
     title: "Click to zoom",
     icon: image,
   });
-
-
+  
   marker.addListener("click", () => {
     map.setZoom(10);
     map.setCenter(marker.getPosition());
   });
  /**
+ * END OF: Map Type Control with option for 'roadmap w/terrain, satellite' w/ dropdown_menu 
+ * Modified from example found at : https://developers.google.com/maps/documentation/javascript/controls
+ */
+/**
+ * END OF: Handling event/Map and Marker Events: Event handler added to marker so zooms map once clicked
+ * Modified so it doesn't pan back to marker, from example found at : https://developers.google.com/maps/documentation/javascript/events
+ */
+ /**
  * START OF: Simple Polyline
- * Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
+ * Modified from FLIGHTPATH example found at : https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
+ */
+ /**
+ * START OF: MOVEBANK Mountain Caribou location data. Exported data of one specific caribou in .csv format. Used formula to concatonate Lat/Lng into format seen below
+ *Tried to bring info in a .kml but had a hard time figuring it out, this is my workaround. 
+ * MOVEBANK DATA : https://www.movebank.org/cms/webapp?gwt_fragment=https://www.movebank.org/movebank/#
  */
   const cariboutracks = [
   { lat: 55.3295348044049, lng: -122.110498767601},
@@ -266,7 +286,21 @@ function initMap() {
     strokeOpacity: 1.0,
     strokeWeight: 1,
   });
-
+ /**
+ * END OF: Simple Polyline
+ * Modified from FLIGHTPATH example found at : https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
+ */
+ /**
+ * END OF: MOVEBANK Mountain Caribou location data. Exported data of one specific caribou in .csv format. Used formula to concatonate Lat/Lng into format seen below
+ *Tried to bring info in a .kml but had a hard time figuring it out, this is my workaround. 
+ * MOVEBANK DATA : https://www.movebank.org/cms/webapp?gwt_fragment=https://www.movebank.org/movebank/#
+ */
+  /**
+ * START OF: Info Window
+ *Tried to move info window to pop-up below the marker, but had some issues
+ * Modified from FLIGHTPATH example found at : https://developers.google.com/maps/documentation/javascript/infowindows
+ *NOTE: Not 100% sure on the formating of this html in 'const contentString', this might be considered inline? 
+ */
   caribou.setMap(map);
   const contentString =
   '<div id="content">' +
@@ -303,7 +337,7 @@ function initMap() {
   const infowindow = new google.maps.InfoWindow({
     content: contentString,
     ariaLabel: "Mountain Caribou",
-    // pixelOffset: new google.maps.Size(-130,-250)  
+    // pixelOffset: new google.maps.Size(-130,-250)  this was my attempt at moving info window, ended up leaving it.
   });
  
   marker.addListener("click", () => {
@@ -315,8 +349,18 @@ function initMap() {
   });
 
 
-window.initMap = initMap;
-
+window.initMap = initMap;  
+/**
+ * END OF: Info Window
+ *Tried to move info window to pop-up below the marker, but had some issues
+ * Modified from FLIGHTPATH example found at : https://developers.google.com/maps/documentation/javascript/infowindows
+ *NOTE: Not 100% sure on the formating of this html in 'const contentString', this might be considered inline? 
+ */
+  
+/**
+ * CENTERCONTROL CONTINUED: The CenterControl adds a control to the map that recenters the map on
+ * Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/control-custom
+ */
     // Create the DIV to hold the control and call the CenterControl()
   // constructor passing in this DIV.
   const centerControlDiv = document.createElement("div");
@@ -326,15 +370,17 @@ window.initMap = initMap;
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
   
 }
+ /**
+ * CENTERCONTROL END: The CenterControl adds a control to the map that recenters the map on
+ * Modified from example found at : https://developers.google.com/maps/documentation/javascript/examples/control-custom
+ */
+      
 
-
-     
-    </script>
+  </script>
   </head>
   <body>
     <div id="map"></div>
-    
-    
+   
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <!-- *** STUDENTS: Replace YOUR_API_KEY text with provided key in class for property src in next line *** -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCM-WWHYHIKY-do4kquMy9Z4wQaQx51AuE&callback=initMap&v=weekly" async>
